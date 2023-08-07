@@ -18,7 +18,7 @@ longitude = 0
 
 crashInfo = []
 async function getData() {
-const response = await fetch('Map Files/data/crashes.geojson');
+const response = await fetch('Map-Files/data/crashes.geojson');
 const data = await response.json();
 console.log('got data')
 
