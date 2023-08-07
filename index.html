@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="Map Files/css/style.css">
+  <!--Leaflet CSS-->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+  crossorigin=""/>
+
+  
+  <!--Leaflet Javascript-->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+  crossorigin=""></script>
+
+  <!--Scripts/CSS for Date Range Selector-->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+
+
+
+
+  <title>Salisbury Map</title>
+</head>
+<body>
+  <div class="grid-container">
+    <header id="header">
+      <img src="sbymd-1.png">
+      <h1>City of Salisbury: Crash Data </h1>
+    </header>
+
+    <div id="type-toggle">
+        <table>
+          <tr>
+            <th id="injury-checkbox-label">Injury Crash</th>
+            <th id="property-checkbox-label">Property Damage Crash</th>
+            <th id="fatal-checkbox-label">Fatal Crash</th>
+          </tr>
+          <tr>
+            <td><input type="checkbox" class="checkbox" id="injury-checkbox" name="injury-checkbox" value="injury" checked>
+            </td>
+            <td><input type="checkbox" class="checkbox" id="damage-checkbox" name="damage-checkbox" value="damage" checked>
+            </td>
+            <td><input type="checkbox" class="checkbox" id="fatal-checkbox" name="damage-checkbox" value="fatal" checked></td>
+          </tr>
+          
+          
+        </table>
+        
+      
+    </div>
+
+    <div id="indicator">
+      <table>
+        <tr>
+          <th id="injury-number-label">Injuries</th>
+          <th id="property-number-label">Property Damages</th>
+          <th id="fatal-number-label">Fatalities</th>
+        </tr>
+        <tr>
+          <td id="injury-number-indicator"></td>
+          <td id="property-number-indicator"></td>
+          <td id="fatal-number-indicator"></td>
+        </tr>
+      </table>
+      
+    </div>
+
+    <div id="date">
+
+
+      <div id="reportrange" style="background: #e4e4e4; font-size: 40px; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 93%; height: 83%">
+        <input type="text" name="daterange" value="01/01/2020 - 12/31/2022" />
+      </div>
+      <script>
+        //start date and end date in YYYMMDD format
+        startDate = 20200101
+        endDate = 20221231
+        $(function() {
+          $('input[name="daterange"]').daterangepicker({
+            opens: 'left'
+          }, function(start, end, label) {
+            console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+            startDate = start.format('YYYYMMDD')
+            endDate = end.format('YYYYMMDD')
+            removePoints()
+            clearCrashInfo()
+            resetCanvas()
+            clearChart()
+            getData()
+            setTimeout(displayTotals,300)
+            createDiv()
+            setTimeout(createChart, 300)
+            setTimeout(displayInjuryPoints, 1000)
+            setTimeout(displayPropertyDamagePoints, 1000)
+            setTimeout(displayFatalPoints, 1000)
+          });
+        });
+
+        </script>
+
+
+
+
+    </div>
+
+    <div id="map">
+    </div>
+
+    
+
+    <div id="chart">
+      
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+      
+    </div>
+
+
+
+
+
+
+    <div id="street-view">
+      street view feature (unavailable)
+    </div>
+
+    
+  </div>
+  
+  
+
+  
+
+
+<script src="/Map Files/scripts/leaflet.ajax.min.js"></script>
+<script src="Map Files/scripts/script.js"></script>
+<script src="Map Files/scripts/data-script.js"></script>
+<script src="/Map Files/scripts/chart-script.js"></script>
+<!--<script src="dist/js/datepicker.min.js"></script>-->
+<script src="dist/js/locales/fr.min.js"></script>
+
+</body>
+</html>
