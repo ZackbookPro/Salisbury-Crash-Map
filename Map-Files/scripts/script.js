@@ -26,6 +26,8 @@ let year_2020 = []
 let year_2021 = []
 let year_2022 = []
 
+let latlong = []
+
 
 //filters crashes into objects
 populateCrashInfo = () => {
@@ -134,7 +136,6 @@ var markerGroup = L.layerGroup().addTo(map)
 function displayInjuryPoints() {
 
 	for(i = 0; i < crashInfo.length; i++){
-		
 		if(crashInfo[i].report_typ == "Injury Crash"){
 			var injuries = L.circleMarker([crashInfo[i].latitude, crashInfo[i].longitude],
 				{
@@ -143,39 +144,49 @@ function displayInjuryPoints() {
 					
 					
 				}).bindPopup(label_reportType.bold() + crashInfo[i].report_typ + "<br>" + label_date.bold() + crashInfo[i].date.substring(0,16) + "<br>" + label_lightDesc.bold() + crashInfo[i].light_desc + "<br>" + label_surfCond.bold() + crashInfo[i].surf_cond_)
-				.addTo(markerGroup)	
-		} 
-	}
-  }
+				.addTo(markerGroup).on('click', function(e) {
+					document.getElementById('latlong').innerText = "Latitude: " + e.latlng.lat + ", " + " Longitude: " + e.latlng.lng
+			});
+		} 	
+	}	
+}
 
 function displayPropertyDamagePoints() {
-	for(i = 0; i < crashInfo.length; i++){
 
+	for(i = 0; i < crashInfo.length; i++){
 		if(crashInfo[i].report_typ == "Property Damage Crash"){
 			var propertyDamage = L.circleMarker([crashInfo[i].latitude, crashInfo[i].longitude],
 				{
 					color: "blue",
 					radius: 2,
 					
-				}).bindPopup(label_reportType.bold() + crashInfo[i].report_typ + "<br>" + label_date.bold() + crashInfo[i].date.substring(0,16) + "<br>" + label_lightDesc.bold() + crashInfo[i].light_desc + "<br>" + label_surfCond.bold() + crashInfo[i].surf_cond_).addTo(markerGroup)
-		}}
+				}).bindPopup(label_reportType.bold() + crashInfo[i].report_typ + "<br>" + label_date.bold() + crashInfo[i].date.substring(0,16) + "<br>" + label_lightDesc.bold() + crashInfo[i].light_desc + "<br>" + label_surfCond.bold() + crashInfo[i].surf_cond_).addTo(markerGroup).on('click', function(e) {
+					document.getElementById('latlong').innerText = "Latitude: " + e.latlng.lat + ", " + " Longitude: " + e.latlng.lng
+			});
+		}
 	}
+}
 
 function displayFatalPoints() {
 	for(i = 0; i < crashInfo.length; i++){
-
 		if(crashInfo[i].report_typ == "Fatal Crash"){
 			var fatalities = L.circleMarker([crashInfo[i].latitude, crashInfo[i].longitude],
 				{
 					color: "red",
 					radius: 8,
 					
-				}).bindPopup(label_reportType.bold() + crashInfo[i].report_typ + "<br>" + label_date.bold() + crashInfo[i].date.substring(0,16) + "<br>" + label_lightDesc.bold() + crashInfo[i].light_desc + "<br>" + label_surfCond.bold() + crashInfo[i].surf_cond_).addTo(markerGroup)
-		}} 			
-	}
+				}).bindPopup(label_reportType.bold() + crashInfo[i].report_typ + "<br>" + label_date.bold() + crashInfo[i].date.substring(0,16) + "<br>" + label_lightDesc.bold() + crashInfo[i].light_desc + "<br>" + label_surfCond.bold() + crashInfo[i].surf_cond_).addTo(markerGroup).on('click', function(e) {
+					document.getElementById('latlong').innerText = "Latitude: " + e.latlng.lat + ", " + " Longitude: " + e.latlng.lng
+			});
+		}
+	} 			
+}
 		
-	
-
+//function to display latitude/longitude of a selected point
+function removeLatLng() {
+	let latlong = document.getElementById('latlong')
+	let removeText = latlong.innerText('')
+}
 
 //function to remove points so new points can populate the map
 function removePoints() {
